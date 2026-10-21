@@ -1,6 +1,7 @@
 
 import csv
 from pathlib import Path
+import requests
 
 
 # Ruta del proyecto, independientemente del directorio desde el que se ejecute.
@@ -86,29 +87,83 @@ def leer_y_validar_csv(ruta):
     return identificadores, duplicados, invalidos
 
 
+
+
+
+API_URL = "https://jsonplaceholder.typicode.com/posts"
+TIMEOUT = 10
+
+
+def consultar_id(id_cuenta):
+    url = f"{API_URL}/{id_cuenta}"
+
+    try:
+        respuesta = requests.get(url, timeout=TIMEOUT)
+
+        if respuesta.status_code == 404:
+            return {
+                "id_cuenta": id_cuenta,
+                "estado": "NO_ENCONTRADO",
+                "datos": None,
+                "causa": "ID_INEXISTENTE",
+            }
+
+        respuesta.raise_for_status()
+
+        datos = respuesta.json()
+
+        return {
+            "id_cuenta": id_cuenta,
+            "estado": "RESUELTO",
+            "datos": datos,
+            "causa": None,
+        }
+
+    except requests.exceptions.Timeout:
+        return {
+            "id_cuenta": id_cuenta,
+            "estado": "ERROR_TECNICO",
+            "datos": None,
+            "causa": "TIMEOUT",
+        }
+
+    except requests.exceptions.ConnectionError:
+        return {
+            "id_cuenta": id_cuenta,
+            "estado": "ERROR_TECNICO",
+            "datos": None,
+            "causa": "ERROR_CONEXION",
+        }
+
+    except requests.exceptions.HTTPError as error:
+        return {
+            "id_cuenta": id_cuenta,
+            "estado": "ERROR_TECNICO",
+            "datos": None,
+            "causa": f"HTTP_{error.response.status_code}",
+        }
+
+    except requests.exceptions.RequestException:
+        return {
+            "id_cuenta": id_cuenta,
+            "estado": "ERROR_TECNICO",
+            "datos": None,
+            "causa": "ERROR_HTTP",
+        }
+
+    except ValueError:
+        return {
+            "id_cuenta": id_cuenta,
+            "estado": "ERROR_TECNICO",
+            "datos": None,
+            "causa": "JSON_INVALIDO",
+        }
+
+
 def main():
-    if not CSV_PATH.exists():
-        raise FileNotFoundError(
-            f"No se encontró el archivo de entrada: {CSV_PATH}"
-        )
-
-    identificadores, duplicados, invalidos = leer_y_validar_csv(CSV_PATH)
-
-    print("\n--- RESUMEN DE LECTURA Y VALIDACIÓN ---")
-    print(f"IDs únicos válidos: {len(identificadores)}")
-    print(f"Duplicados detectados: {len(duplicados)}")
-    print(f"Registros inválidos: {len(invalidos)}")
-
-    print("\nIDs válidos:")
-    print(identificadores)
-
-    print("\nDuplicados:")
-    for duplicado in duplicados:
-        print(duplicado)
-
-    print("\nInválidos:")
-    for invalido in invalidos:
-        print(invalido)
+    for id_cuenta in [7, 101, 150]:
+        resultado = consultar_id(id_cuenta)
+        print(resultado)
 
 
 if __name__ == "__main__":
