@@ -3,5 +3,8 @@ __pycache__/
 *.py[cod]
 .env
 data/estado.json
+data/estado.tmp
 output/
 logs/
+.pytest_cache/
+*.xlsx
