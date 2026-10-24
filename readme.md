@@ -40,6 +40,8 @@ Dependencias de `requirements.txt`:
 - `openpyxl` — escritura del Excel.
 - `python-dotenv` — lectura del archivo `.env`.
 
+> **Nota para Windows**: si al ejecutar `python -m pip --version` aparece `No module named pip`, el intérprete de Python no tiene `pip` instalado. Se puede instalar con `python -m ensurepip --upgrade`. Después de eso, `python -m pip install -r requirements.txt` funcionará.
+
 ## Estructura del proyecto
 
 ```text
