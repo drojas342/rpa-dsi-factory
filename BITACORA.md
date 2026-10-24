@@ -46,7 +46,7 @@ El CSV del enunciado trae un 0. Con esa condición, el 0 se descartaba como inv�
 
 **Cómo lo detecté:** revisé el CSV contra el código. Vi el 0 en la línea 21 y me pregunté "¿qué pasa con este?". Al leer la condición, me di cuenta de que nunca llegaba a la API.
 
-**Qué hice:** cambié `<= 0` a `< 0`. Solo los negativos son inválidos. El 0 se consulta, la API responde 404 y queda como `NO_ENCONTRADO`, causa `ID_INEXISTENTE`. Eso es la verdad de negocio.
+**Qué hice:** cambié `<= 0` a `< 0`. Solo los negativos son inválidos. El 0 se consulta, la API responde 404 y queda como `NO_ENCONTRADO`, causa `ID_INEXISTENTE`.
 
 ### Error 2 — La IA no validaba que la respuesta de la API fuera un objeto
 
