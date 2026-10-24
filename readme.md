@@ -7,7 +7,7 @@ Proceso automatizado que lee un CSV diario de cuentas médicas, consulta cada id
 
 ## ¿He usado Python?
 
-Mi stack principal es **Node.js/Express**. Este reto es mi primera experiencia aplicando Python a un proceso de automatización. Anteriormente había usado Python para ejercicios de lógica de programación, pero no para tareas como manipulación de CSV, generación de Excel, consultas HTTP con reintentos o persistencia de estado entre ejecuciones. Recientemente completé el curso **Python Essentials 1** de Cisco Networking Academy: https://www.credly.com/badges/d0dfe708-6728-458b-8387-285fcac3f50e/public_url
+Mi stack principal es **Node.js/Express**. Este reto es mi primera experiencia aplicando Python a un proceso de automatización. Anteriormente había usado Python para ejercicios de lógica de programación, pero no para tareas como manipulación de CSV, generación de Excel, consultas HTTP con reintentos o persistencia de estado entre ejecuciones. Recientemente completé el curso **Python Essentials 1** de Cisco Networking Academy, que me proporcionó una base inicial en el lenguaje: https://www.credly.com/badges/d0dfe708-6728-458b-8387-285fcac3f50e/public_url
 
 
 ---
