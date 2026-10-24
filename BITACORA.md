@@ -61,14 +61,14 @@ Asumía que `respuesta.json()` siempre devuelve un diccionario. Pero `json()` pu
 
 **Cómo lo detecté:** revisando el flujo entre `consultar_id.py` y `generar_excel.py`. `generar_excel` hace `datos.get(...)`; eso asume dict. Si `consultar_id` no garantiza dict, el contrato entre los dos módulos está roto.
 
-**Qué hice:** agregué `isinstance(datos, dict)` en `consultar_id.py`. Si no es un dict, devuelvo `ERROR_TECNICO` con causa `RESPUESTA_NO_ES_OBJETO`. El Excel lo muestra como error, y el runbook dice "verificar con curl el endpoint".
+**Qué hice:** agregué `isinstance(datos, dict)` en `consultar_id.py`. Si no es un dict, devuelvo `ERROR_TECNICO` con causa `RESPUESTA_NO_ES_OBJETO`.
 
   
 ### Error 3 — La IA no validaba que el estado cargado tuviera valores conocidos
 
 En `estados.py`, la IA validaba que el JSON fuera un dict de dicts y que cada resultado tuviera los campos `estado`, `datos` y `causa`. Pero no validaba que `estado` fuera uno de los tres valores conocidos (`RESUELTO`, `NO_ENCONTRADO`, `ERROR_TECNICO`).
 
-Si alguien llegara a editar `estado.json` a mano y deja `"estado": "RESUELTOX"`. El proceso lo cargaría, `main.py` lo trataría como "no es RESUELTO ni NO_ENCONTRADO" y re-consultaría el id sin necesidad. El JSON se corrompe silenciosamente y el proceso hace trabajo de más.
+Cómo lo detecté: probé mentalmente qué pasaría si alguien edita estado.json a mano y deja "estado": "RESUELTOX". El proceso lo cargaría, main.py lo trataría como "no es RESUELTO ni NO_ENCONTRADO" y re-consultaría el id sin necesidad. El JSON se corrompe silenciosamente y el proceso hace trabajo de más.
 
 Agregué la validación:
 
