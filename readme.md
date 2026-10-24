@@ -98,7 +98,7 @@ La decisión de diseño es consultar una sola vez cada identificador único. El 
 
 En el Excel, cada línea del CSV aparece con su propio `linea_csv` y `valores_recibidos`, aunque los registros con el mismo identificador compartan el resultado de la consulta.
 
-¿Por qué se hace así? Consultar el mismo identificador varias veces contra la misma API durante una ejecución desperdicia tiempo y recursos. Además, conservar cada línea en el Excel permite al auditor verificar qué datos llegaron, mientras que el estado permite al operador identificar qué consultas ya se realizaron.
+¿Por qué se hace así? Consultar el mismo identificador varias veces contra la misma API durante una ejecución desperdicia tiempo y recursos. Además, conservar cada línea en el Excel permite al auditor verificar qué datos llegaron, mientras que el estado permite identificar qué consultas ya se realizaron.
 
 **Diferencia entre "omitidos" y "duplicados" en el resumen:**
 
